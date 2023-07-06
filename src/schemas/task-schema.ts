@@ -1,11 +1,13 @@
 import Joi from "joi";
-import { Task } from "@/protocols/task-protocol";
+import { CreateTask, Task } from "@/protocols/task-protocol";
 
-const taskSchema = Joi.object<Task>({
-    id: Joi.number(),
-    description: Joi.string().required(),
-    isDone: Joi.boolean().required(),
-    createdAt: Joi.date().required(),
+export const createTaskSchema = Joi.object<CreateTask>({
+    description: Joi.string().min(1).max(50).required(),
 });
 
-export default taskSchema;
+export const taskSchema = Joi.object<Task>({
+    id: Joi.number().required(),
+    description: Joi.string().min(1).max(50).required(),
+    isDone: Joi.boolean(),
+    createdAt: Joi.date(),
+});
